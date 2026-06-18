@@ -1159,14 +1159,10 @@
     const CUSTOM_SCHEDULE = {
       "2026-06-16": { status: "휴무", memo: "작업 시작 / 휴무" },
       "2026-06-17": { status: "휴무", memo: "휴무" },
-      "2026-06-18": { status: "예약", memo: "전력 타입" },
       "2026-06-21": { status: "휴무", memo: "휴무" },
       "2026-06-22": { status: "휴무", memo: "휴무" },
-      "2026-06-24": { status: "휴무", memo: "휴무" },
-      "2026-06-25": { status: "휴무", memo: "휴무" },
-      "2026-06-26": { status: "휴무", memo: "휴무" },
-      "2026-06-19": { status: "예약", memo: "전력 타입" },
-      "2026-06-20": { status: "예약", memo: "전력 타입" }
+      "2026-06-26": { status: "작업", memo: "1 마감일" },
+      "2026-06-29": { status: "작업", memo: "2 마감일" }
     };
 
     /*
@@ -1181,26 +1177,20 @@
         type: "전력 타입",
         file: "파일 확인",
         payment: "완납",
-        note: "C"
+        note: "C, 천천히 마감"
+      },
+      {
+        type: "전력 타입",
+        file: "파일 확인",
+        payment: "미납",
+        note: "M, 6월 29일 마감"
       },
       {
         type: "타입 미정",
         file: "파일 대기",
         payment: "미납",
-        note: "M"
+        note: "M, 1주일 이내 3개"
       },
-      {
-        type: "타입 미정",
-        file: "파일 대기",
-        payment: "미납",
-        note: "M"
-      },
-      {
-        type: "타입 미정",
-        file: "파일 대기",
-        payment: "미납",
-        note: "M"
-      }
     ];
 
     function getDateKey(targetYear, targetMonth, targetDate) {
