@@ -257,23 +257,64 @@
     }
 
     .reservation-item {
-      flex: 0 0 110px;
+      position: relative;
+      overflow: hidden;
+      flex: 0 0 111px;
       min-height: 78px;
-      padding: 8px;
+      padding: 8px 7px 8px 12px;
       border-radius: 14px;
       background: #f7f8f7;
       border: 1px solid #e6e9e6;
       scroll-snap-align: start;
       text-align: left;
+      --type-accent: #cfd5d1;
+    }
+
+    .reservation-item::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 5px;
+      background: var(--type-accent);
+    }
+
+    .reservation-item.type-unknown {
+      background: #f7f8f7;
+      border-color: #e6e9e6;
+      --type-accent: #cfd5d1;
+    }
+
+    .reservation-item.type-a {
+      background: #eef4f7;
+      border-color: #d5e5ec;
+      --type-accent: #7aa8b8;
+    }
+
+    .reservation-item.type-b {
+      background: #eef7f1;
+      border-color: #cfe6d7;
+      --type-accent: #68a77b;
+    }
+
+    .reservation-item.type-c {
+      background: #f4eff8;
+      border-color: #ded0e8;
+      --type-accent: #a982bd;
+    }
+
+    .reservation-item.type-power {
+      background: #f8f1df;
+      border-color: #ead29a;
+      --type-accent: #c79838;
     }
 
     .reservation-item.confirmed-reservation {
-      background: #f6fbf7;
       border-color: #dceee2;
     }
 
     .reservation-item.active-reservation {
-      background: #f6fbf7;
       border-color: var(--main);
       box-shadow:
         inset 0 0 0 1px var(--main),
@@ -295,8 +336,9 @@
       display: grid;
       place-items: center;
       border-radius: 999px;
-      background: var(--soft);
-      color: var(--main-dark);
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid #d5dad6;
+      color: #6f7771;
       font-size: 13px;
       font-weight: 900;
     }
@@ -310,7 +352,7 @@
 
     .reservation-main {
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       align-items: center;
       justify-content: flex-start;
       gap: 3px;
@@ -326,9 +368,9 @@
     .status-pill {
       display: inline-flex;
       align-items: center;
-      padding: 3px 5px;
+      padding: 2px 4px;
       border-radius: 999px;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 900;
       white-space: nowrap;
     }
@@ -1389,6 +1431,17 @@
       return 'wait';
     }
 
+    function getReservationTypeClass(type) {
+      const text = String(type || '');
+
+      if (text.includes('전력')) return 'type-power';
+      if (text.includes('A타입')) return 'type-a';
+      if (text.includes('B타입')) return 'type-b';
+      if (text.includes('C타입')) return 'type-c';
+
+      return 'type-unknown';
+    }
+
     function renderReservations() {
       const reservationList = document.getElementById('reservationList');
       if (!reservationList) return;
@@ -1408,7 +1461,7 @@
         const isActive = item.file.includes('작업중');
         const isConfirmed = item.file.includes('작업중') || item.file.includes('파일 확인');
 
-        reservationItem.className = `reservation-item${isConfirmed ? ' confirmed-reservation' : ''}${isActive ? ' active-reservation' : ''}`;
+        reservationItem.className = `reservation-item ${getReservationTypeClass(item.type)}${isConfirmed ? ' confirmed-reservation' : ''}${isActive ? ' active-reservation' : ''}`;
         top.className = 'reservation-top';
         number.className = 'reservation-number';
         type.className = 'reservation-type';
