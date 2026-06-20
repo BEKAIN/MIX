@@ -456,6 +456,30 @@
       outline-offset: 2px;
     }
 
+    .calendar-day.past-work-day {
+      color: #6f7771;
+      background: #e7ebe8;
+      border-color: #d5ddd8;
+    }
+
+    .calendar-day.fast-deadline-day {
+      color: #5a3f16;
+      background: #f7ead5;
+      border-color: #e5c58e;
+    }
+
+    .calendar-day.super-deadline-day {
+      color: #ffffff;
+      background: #d98b3a;
+      border-color: #d98b3a;
+    }
+
+    .calendar-day.today-deadline-day {
+      color: #ffffff;
+      background: #9f4f2f;
+      border-color: #9f4f2f;
+    }
+
     .calendar-day small {
       display: block;
       margin-top: 2px;
@@ -497,6 +521,32 @@
     .legend-dot.today {
       background: #ffffff;
       border: 2px solid var(--main);
+    }
+
+    .legend-dot.past {
+      background: #e7ebe8;
+      border-color: #d5ddd8;
+    }
+
+    .legend-dot.rest {
+      background: #ffffff;
+      border-color: #cfd5d1;
+      border-style: dashed;
+    }
+
+    .legend-dot.fast {
+      background: #f7ead5;
+      border-color: #e5c58e;
+    }
+
+    .legend-dot.super {
+      background: #d98b3a;
+      border-color: #d98b3a;
+    }
+
+    .legend-dot.today-deadline {
+      background: #9f4f2f;
+      border-color: #9f4f2f;
     }
 
     .tabs {
@@ -655,6 +705,44 @@
       padding-left: 18px;
     }
 
+    .deadline-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .deadline-card {
+      padding: 18px;
+      border-radius: 22px;
+      background: #fff;
+      border: 1px solid var(--line);
+      box-shadow: 0 8px 22px rgba(31, 37, 33, 0.04);
+    }
+
+    .deadline-card strong {
+      display: block;
+      color: var(--main-dark);
+      font-size: 18px;
+      letter-spacing: -0.03em;
+    }
+
+    .deadline-card span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .deadline-price {
+      margin-top: 10px;
+      color: var(--text);
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+    }
+
     li {
       margin: 5px 0;
     }
@@ -805,6 +893,10 @@
         grid-template-columns: 1fr;
       }
 
+      .deadline-grid {
+        grid-template-columns: 1fr;
+      }
+
       .tabs {
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 6px;
@@ -884,7 +976,11 @@
         <div class="calendar-legend" aria-label="달력 범례">
           <span class="legend-item"><span class="legend-dot"></span>상담/예약</span>
           <span class="legend-item"><span class="legend-dot work"></span>작업 가능</span>
+          <span class="legend-item"><span class="legend-dot rest"></span>휴무</span>
           <span class="legend-item"><span class="legend-dot today"></span>오늘</span>
+          <span class="legend-item"><span class="legend-dot fast"></span>빠른 마감</span>
+          <span class="legend-item"><span class="legend-dot super"></span>초특급 마감</span>
+          <span class="legend-item"><span class="legend-dot today-deadline"></span>당일 마감</span>
         </div>
       </div>
     </section>
@@ -985,6 +1081,42 @@
               <li>추가 컨펌: 무료</li>
             </ul>
           </article>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h2>빠른 마감 옵션</h2>
+        <p class="muted">
+          빠른 마감은 작업 가능 기간 내 일정이 맞을 경우에만 진행 가능합니다.<br />
+          기본 견적 확정 후 아래 배율이 적용됩니다.
+        </p>
+
+        <div class="deadline-grid">
+          <article class="deadline-card">
+            <strong>빠른 마감</strong>
+            <span>5일 이내 마감</span>
+            <div class="deadline-price">견적의 1.5배</div>
+          </article>
+
+          <article class="deadline-card">
+            <strong>초특급 마감</strong>
+            <span>3일 이내 마감</span>
+            <div class="deadline-price">견적의 2배</div>
+          </article>
+
+          <article class="deadline-card">
+            <strong>당일 마감</strong>
+            <span>당일 마감</span>
+            <div class="deadline-price">견적의 3배</div>
+          </article>
+        </div>
+
+        <div class="callout warning">
+          빠른 마감 옵션은 작업 시간이 짧아 중간 피드백이나 단계별 컨펌 없이 최종본 전달 방식으로 진행됩니다.<br />
+          신청 전 요청사항, 레퍼런스, 원하는 효과를 최대한 구체적으로 전달해주세요.
+        </div>
+        <div class="callout warning">
+          빠른 마감 가능 여부는 신청 시점의 작업 일정, 파일 상태, 요청 효과 범위 확인 후 확정됩니다.
         </div>
       </div>
 
@@ -1152,7 +1284,7 @@
       형식:
       "YYYY-MM-DD": { status: "상태", memo: "달력에 표시할 글" }
       --------------------------------
-      상태: 작업 / 예약 / 마감 / 휴무 / 상담
+      상태: 작업 / 휴무 / 빠른 / 특급 / 당일 / 상담
 
       맨 첫 줄 = 작업 시작일
     */
@@ -1224,14 +1356,17 @@
     calendarMonth.textContent = `${year}년 ${monthLabel} 일정`;
     calendarPeriodLabel.textContent = `${workStartDay}일~말일 작업 가능`;
 
-    function getStatusClass(status, isWorkDay) {
+    function getStatusClass(status, isWorkDay, isPastWorkDay) {
       const normalized = String(status || '').trim();
 
-      if (normalized.includes('마감')) return 'closed-day';
-      if (normalized.includes('예약')) return 'reserved-day';
       if (normalized.includes('휴무')) return 'rest-day';
-      if (normalized.includes('작업')) return 'work-day';
+      if (normalized.includes('당일')) return 'today-deadline-day';
+      if (normalized.includes('특급')) return 'super-deadline-day';
+      if (normalized.includes('빠른')) return 'fast-deadline-day';
+      if (normalized.includes('작업')) return isPastWorkDay ? 'past-work-day' : 'work-day';
       if (normalized.includes('상담')) return 'consult-day';
+
+      if (isPastWorkDay) return 'past-work-day';
 
       return isWorkDay ? 'work-day' : 'consult-day';
     }
@@ -1320,10 +1455,13 @@
         const dateKey = getDateKey(year, month, date);
         const customData = CUSTOM_SCHEDULE[dateKey];
         const isWorkDay = date >= workStartDay;
+        const isPastWorkDay = isWorkDay && date < day;
         const isToday = date === day;
         const defaultLabel = isToday ? '오늘' : '';
         const label = customData?.memo || defaultLabel;
-        const statusClass = customData ? getStatusClass(customData.status, isWorkDay) : (isWorkDay ? 'work-day' : 'consult-day');
+        const statusClass = customData
+          ? getStatusClass(customData.status, isWorkDay, isPastWorkDay)
+          : getStatusClass('', isWorkDay, isPastWorkDay);
 
         dateCell.className = `calendar-day ${statusClass}${isToday ? ' today' : ''}`;
         dateCell.innerHTML = `${date}${label ? `<small>${label}</small>` : ''}`;
